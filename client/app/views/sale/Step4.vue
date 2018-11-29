@@ -1,12 +1,12 @@
 <template>
     <div>
-        <router-view></router-view>
+        44444
     </div>
 </template>
 
 <script>
     export default {
-         
+        
     }
 </script>
 

@@ -1,10 +1,9 @@
 <template>
     <div>
-        <div class="Big_box">
+        <div class="Big_box" v-if="carinfo">
             <div class="big_inner" ref="big_inner">
                 <!-- 图片 -->
                 <img ref="img" class="img">
-                <!-- <img v-if="carinfo.images" :src="`http://127.0.0.1:3000/images/carimages/${id}/${nowAlbum}/${carinfo.images[nowAlbum][nowIdx]}`" /> -->
                 <!-- loadingg 图 -->
                 <img src="/images/load.svg" ref="loadingImg" class="loadingImg"/>
                 <!-- 左右按钮 -->
@@ -36,10 +35,12 @@
             
         },
         mounted() {
-            var self = this;
-            window.addEventListener("resize" , function(){
-                self.setWidth()
-            },true)
+            //监听窗口改变尺寸
+            window.addEventListener("resize", this.setWidth, true)
+        },
+        // 当组件 下树的时候,移除监听
+        destroyed(){
+            window.removeEventListener("resize", this.setWidth, true)
         },
         methods: {
             //下一张
@@ -85,7 +86,6 @@
                 var bigW = document.documentElement.clientWidth - 320;
                 this.$refs.big_inner.style.width = bigW +'px';
                 console.log(bigW);
-                
             }
         },
         watch : {

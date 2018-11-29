@@ -20,7 +20,7 @@
     export default {
         beforeCreate() {
             console.log(this.$route.params.id)
-           this.$store.dispatch("carpicStore/loadData" , {"id" : this.$route.params.id})
+           this.$store.dispatch("carpicStore/init" , {"id" : this.$route.params.id})
         },
         computed : {
             // 当前汽车信息

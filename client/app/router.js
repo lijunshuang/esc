@@ -9,6 +9,8 @@ import Ai from "./views/buy/ai";
 import Sifa from "./views/buy/sifa";
 import Park from "./views/park";
 import Carpic from "./views/carpic";
+import Login from "./views/login";
+import axios from "axios";
 
 // import Vue from "vue"; //引入vue
 import VueRouter from "vue-router";//引入路由文件
@@ -72,6 +74,10 @@ const getRouter = (store) => {
                 component : Carpic,
                 name : "carpic"
             },{
+                path : "/login", //
+                component : Login, //登录组件
+                name : "login"
+            },{
                 path : "*", //匹配首页，避免乱输出现空白页
                 redirect : {"name" : "index"}
             }
@@ -79,9 +85,21 @@ const getRouter = (store) => {
         ]
     });
     //当路由跳转的时候做的事情，就是路由守卫
-    router.afterEach((to, from) => {
+    router.afterEach(async function(to, from){
         // console.log(to);//是个 大对象
         // console.log(to.fullPath.match(/\/index\/(\w+)/)[1]);
+        //判断是否登录 未登录直接跳转到登录页面
+        if(to.fullPath != "/login"){
+            const {status , info} = await axios.get("/api/me").then(data => data.data);
+            if (status == -1) {
+                //强行跳转
+                router.push({"name" : "login"})
+            } else {
+                //已经登录了
+                store.commit("meStore/changeInfo" , info)
+            }
+        }
+
         //如果匹配这个模式
         if(/\/index\/(\w+)/.test(to.fullPath)){
             //提炼路由中的index/xxx/aaaa的 xxx 部分。正则表达式的圆括号表示捕获

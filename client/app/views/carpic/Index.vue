@@ -31,7 +31,7 @@ import Smallnav from "./Smallnav";
         //在组件创建之前，拉取信息
         beforeCreate() {
             //发出请求
-            this.$store.dispatch("carpicStore/loadData" , {"id": this.$route.params.id})
+            this.$store.dispatch("carpicStore/init" , {"id": this.$route.params.id})
         },
         computed : {
             id(){

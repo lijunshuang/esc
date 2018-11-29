@@ -1,16 +1,33 @@
 <template>
     <div>
+        <div class="filterBox">
+            <MyFilterBox></MyFilterBox>
+        </div>
+        <MyTable></MyTable>
 
-<h2 style="font-size:80px;text-align:center">我是buy/carlist</h2>
+        <CompareBtn></CompareBtn>
     </div>
 </template>
 
 <script>
+import MyTable from "./MyTable";
+import MyFilterBox from "./MyFilterBox";
+import CompareBtn from "../../../components/CompareBtn";
     export default {
+        beforeCreate() {
+            this.$store.dispatch("findcarStore/fetchCar")
+        },
         
+        //注册组件
+        components : {
+            MyTable,
+            MyFilterBox,
+            CompareBtn
+        }
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+h4{line-height: 30px;margin-bottom:5px;}
+// .filterBox{margin-bottom:20px;}
 </style>

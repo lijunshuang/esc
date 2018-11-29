@@ -2,11 +2,7 @@
     <div>
         <Layout>
             <Sider hide-trigger :style="{background: '#fff'}">
-                <Menu :active-name="$store.state.routerStore.change2NdName" theme="light" width="auto" @on-select="changeleftNav">
-                    <template slot="title">
-                        <Icon type="ios-navigate"></Icon>
-                        Item 1
-                    </template>
+                <Menu :active-name="$store.state.routerStore.col2ndname" theme="light" width="auto" @on-select="changeleftNav">
                     <MenuItem name="carlist">大表选车</MenuItem>
                     <MenuItem name="ai">Ai 荐车</MenuItem>
                     <MenuItem name="sifa">司法拍卖车辆购置</MenuItem>

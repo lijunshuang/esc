@@ -20,15 +20,13 @@ export default {
     },
     actions : {
         //请求服务器数据
-        async loadData({commit}, {id}){
-            // 切换相册 从第一个图集开始
+        async init({commit}, {id}){
+            // 切换相册 从第一个图集开始,和 车辆信息
             commit("changeNowAlbum", {"nowAlbum" : "view"});
             commit("changeNowIdx", {"nowIdx" : 0});
-
+            // commit("changeCarinfo", {"carinfo" : []});
             //then 里面 data可以解构(({data})=>data),等同于((data)=>data.data)
-            // const {result} = await axios.get("/api/carinfo?id=" + id).then( (data) => data.data);
-            const {result} = await axios("/api/carinfo?id=" + id).then(({data}) => data);
-            // console.log(result);
+            const {result} = await axios.get("/api/carinfo?id=" + id).then(data => data.data);
             //通知 mutations 改变
             commit("changeCarinfo" , {"carinfo" : result})
         },
